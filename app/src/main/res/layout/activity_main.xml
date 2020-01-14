@@ -19,7 +19,7 @@
             android:layout_height="300dp"
             android:layout_gravity="center"
             android:background="@drawable/autorizacia"
-            android:visibility="visible">
+            android:visibility="invisible">
 
             <LinearLayout
                 android:id="@+id/logInLay"

@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             val mtavarlay = findViewById(R.id.logLinerLay) as FrameLayout
             mtavarlay.startAnimation(loginai)
         }
-        facebookBtt.setOnClickListener{
+        facebookBtt.setOnClickListener {
             facebookLay.setVisibility(View.VISIBLE)
             frameMain.setVisibility(View.VISIBLE)
         }
@@ -50,29 +51,34 @@ class MainActivity : AppCompatActivity() {
             backToLogIn.setVisibility(View.INVISIBLE)
         }
         logIn.setOnClickListener {
-            auth.createUserWithEmailAndPassword(emailIn.text.toString(), passwordIn.text.toString())
+            auth.signInWithEmailAndPassword(emailIn.text.toString(), passwordIn.text.toString())
                 .addOnCompleteListener {
-                    if(it.isSuccessful)
-                        Toast.makeText(this, "Successful register!", Toast.LENGTH_LONG).show()
-                    else
-                        Toast.makeText(this, "ar shesrulda", Toast.LENGTH_LONG).show()
+                    if (it.isSuccessful) {
+                        Toast.makeText(this, "succes", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(this,MtavariActivity::class.java))
+                    }
+                    else {
+                        Toast.makeText(this, "arasworia", Toast.LENGTH_LONG).show()
+                    }
                 }
-        }
-        auth.createUserWithEmailAndPassword(emailUp.text.toString(), passwordUp.text.toString()).addOnCompleteListener{
-            if(it.isSuccessful)
-            {
-                logInLay.setVisibility(View.VISIBLE)
-                forgotReg.setVisibility(View.VISIBLE)
-                signUpLay.setVisibility(View.INVISIBLE)
-                backToLogIn.setVisibility(View.INVISIBLE)
+            signUp.setOnClickListener {
+                auth.createUserWithEmailAndPassword(
+                    emailUp.text.toString(),
+                    passwordUp.text.toString()
+                )
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            logInLay.setVisibility(View.VISIBLE)
+                            forgotReg.setVisibility(View.VISIBLE)
+                            signUpLay.setVisibility(View.INVISIBLE)
+                            backToLogIn.setVisibility(View.INVISIBLE)
+                        }
+                    }
             }
+
+
         }
+
 
     }
-
-
-
-
-
-
 }
